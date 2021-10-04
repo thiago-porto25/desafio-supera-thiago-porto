@@ -1,3 +1,5 @@
+import { ProductTemplate } from '../templates'
+
 export default function Product() {
-  return <div></div>
+  return <ProductTemplate />
 }

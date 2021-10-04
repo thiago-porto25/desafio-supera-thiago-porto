@@ -1,3 +1,5 @@
+import { ShopTemplate } from '../templates'
+
 export default function Shop() {
-  return <div></div>
+  return <ShopTemplate />
 }
