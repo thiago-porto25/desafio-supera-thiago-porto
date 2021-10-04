@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from '@src/App'
+import App from './App'
 import { BrowserRouter as Router } from 'react-router-dom'
 
-import { globalStyle as GlobalStyle } from '@src/globalStyle'
+import { globalStyle as GlobalStyle } from './globalStyle'
 import 'normalize.css/normalize.css'
 
 ReactDOM.render(
