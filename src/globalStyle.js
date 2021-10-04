@@ -11,7 +11,7 @@ export const globalStyle = createGlobalStyle`
 
   html, body {
     font-family: 'Roboto', Helvetica, Arial, sans-serif;
-    color: var(--light);
+    color: var(--dark);
     font-size: 16px;
     margin: 0;
   }
