@@ -116,7 +116,7 @@ export default function Cart() {
               </li>
             ))
           ) : (
-            <p className="empty-cart">Seu carrinho esta vazio!</p>
+            <p className="empty-cart">Seu carrinho está vazio!</p>
           )}
         </ul>
 
