@@ -53,7 +53,7 @@ const Container = styled.li`
 
 export default function ShopItem({ item }) {
   return (
-    <Link to={`product/${item.id}`}>
+    <Link to={`produto/${item.id}`}>
       <Container>
         <img
           className="item-image"
@@ -65,7 +65,7 @@ export default function ShopItem({ item }) {
           <RiHeartsLine /> {item.score}
         </p>
         <p className="item-price">
-          R${(Math.round(item.price * 100) / 100).toFixed(2)}
+          R$ {(Math.round(item.price * 100) / 100).toFixed(2)}
         </p>
       </Container>
     </Link>
