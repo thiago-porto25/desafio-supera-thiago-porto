@@ -141,7 +141,11 @@ export default function ProductTemplate() {
     const isOldItem = cart.some((item) => item.id === id)
 
     if (cart[0] && isOldItem) setCart(newCart)
-    else setCart([...cart, { id, quantity: 1 }])
+    else
+      setCart([
+        ...cart,
+        { id, price: product.price, name: product.name, quantity: 1 },
+      ])
 
     setCartOpen(true)
   }
