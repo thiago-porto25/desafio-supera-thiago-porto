@@ -36,6 +36,10 @@ const Btn = styled.button`
   }
 `
 
-export default function Button({ children, type }) {
-  return <Btn className={type}>{children}</Btn>
+export default function Button({ children, type, ...rest }) {
+  return (
+    <Btn {...rest} className={type}>
+      {children}
+    </Btn>
+  )
 }

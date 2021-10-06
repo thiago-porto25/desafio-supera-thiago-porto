@@ -4,6 +4,8 @@ import { useContext } from 'react'
 import { motion } from 'framer-motion'
 import { IoMdClose } from 'react-icons/io'
 import { Button, CartItem } from '.'
+import { useHistory } from 'react-router'
+import * as ROUTES from '../constants/routes'
 
 const Modal = styled(motion.div)`
   height: 100%;
@@ -64,6 +66,14 @@ const CartContainer = styled(motion.div)`
 
 export default function Cart() {
   const { setCartOpen, cart } = useContext(cartContext)
+  const history = useHistory()
+
+  const handleSearchProducts = () => {
+    setCartOpen(false)
+    history.push(ROUTES.SHOP)
+  }
+
+  const handleCheckout = () => {}
 
   const slideIn = {
     hidden: {
@@ -110,10 +120,8 @@ export default function Cart() {
 
         <ul className="cart-list-container">
           {cart.length > 0 ? (
-            cart.map((product, i) => (
-              <li key={`${product.name}-${i}`}>
-                <CartItem product={product} />
-              </li>
+            cart.map((product) => (
+              <CartItem key={product.id} product={product} />
             ))
           ) : (
             <p className="empty-cart">Seu carrinho está vazio!</p>
@@ -134,9 +142,13 @@ export default function Cart() {
 
         <div className="cart-button-container">
           {cart.length > 0 ? (
-            <Button type="white border-black">CONTINUAR</Button>
+            <Button onClick={handleCheckout} type="white border-black">
+              CONTINUAR
+            </Button>
           ) : (
-            <Button type="black">PROCURAR PRODUTOS</Button>
+            <Button onClick={handleSearchProducts} type="black">
+              PROCURAR PRODUTOS
+            </Button>
           )}
         </div>
       </CartContainer>
