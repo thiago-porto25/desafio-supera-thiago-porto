@@ -2,6 +2,8 @@ import styled from 'styled-components'
 import { cartContext } from '../context/cartContext'
 import { useContext } from 'react'
 import { motion } from 'framer-motion'
+import { IoMdClose } from 'react-icons/io'
+import { Button, CartItem } from '.'
 
 const Modal = styled(motion.div)`
   height: 100%;
@@ -14,14 +16,54 @@ const Modal = styled(motion.div)`
 
 const CartContainer = styled(motion.div)`
   height: 100%;
-  width: 400px;
+  max-width: 400px;
+  width: 100%;
   position: absolute;
   right: 0;
   background-color: var(--light);
+  color: var(--dark);
+  padding: 2rem 1rem 2rem 2rem;
+  box-sizing: border-box;
+  overflow-y: scroll;
+
+  .close-cart-container {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 30px;
+    cursor: pointer;
+
+    svg {
+      transition: 200ms ease-in-out;
+    }
+
+    &:hover > svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  .cart-list-container {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    .empty-cart {
+      box-sizing: border-box;
+      height: 17rem;
+      padding-top: 3rem;
+      text-align: center;
+    }
+  }
+
+  .cart-button-container {
+    height: 3.5rem;
+    width: 80%;
+    margin: 0 auto;
+  }
 `
 
 export default function Cart() {
-  const { setCartOpen } = useContext(cartContext)
+  const { setCartOpen, cart } = useContext(cartContext)
 
   const slideIn = {
     hidden: {
@@ -54,7 +96,50 @@ export default function Cart() {
         animate="visible"
         exit="exit"
         onClick={(e) => e.stopPropagation()}
-      ></CartContainer>
+      >
+        <div
+          onClick={() => setCartOpen(false)}
+          className="close-cart-container"
+        >
+          <IoMdClose />
+        </div>
+
+        <div className="cart-title-container">
+          <h1>Seu carrinho</h1>
+        </div>
+
+        <ul className="cart-list-container">
+          {cart.length > 0 ? (
+            cart.map((product, i) => (
+              <li key={`${product.name}-${i}`}>
+                <CartItem product={product} />
+              </li>
+            ))
+          ) : (
+            <p className="empty-cart">Seu carrinho esta vazio!</p>
+          )}
+        </ul>
+
+        {cart.length > 0 && (
+          <>
+            <div className="cart-shipping-container">
+              <h4>Frete: R$</h4>
+            </div>
+
+            <div className="cart-total-container">
+              <h3>Total: R$</h3>
+            </div>
+          </>
+        )}
+
+        <div className="cart-button-container">
+          {cart.length > 0 ? (
+            <Button type="white border-black">CONTINUAR</Button>
+          ) : (
+            <Button type="black">PROCURAR PRODUTOS</Button>
+          )}
+        </div>
+      </CartContainer>
     </Modal>
   )
 }
