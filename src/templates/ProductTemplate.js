@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 import { useParams } from 'react-router'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import data from '../data/products.json'
 import { Button } from '../components'
 import { RiHeartsLine } from 'react-icons/ri'
+import { cartContext } from '../context/cartContext'
 
 const Container = styled.main`
   min-height: calc(100vh - 7rem);
@@ -125,10 +126,28 @@ const Container = styled.main`
 
 export default function ProductTemplate() {
   const [product, setProduct] = useState()
-  const { id } = useParams()
+  const { id: stringId } = useParams()
+  const { cart, setCart, setCartOpen } = useContext(cartContext)
+  const id = parseInt(stringId, 10)
+
+  const handleAddToCart = () => {
+    const newCart = cart.map((item) => {
+      if (item.id === id) {
+        item.quantity += 1
+        return item
+      } else return item
+    })
+
+    const isOldItem = cart.some((item) => item.id === id)
+
+    if (cart[0] && isOldItem) setCart(newCart)
+    else setCart([...cart, { id, quantity: 1 }])
+
+    setCartOpen(true)
+  }
 
   useEffect(() => {
-    const selectedProduct = data.find((item) => item.id === parseInt(id, 10))
+    const selectedProduct = data.find((item) => item.id === id)
 
     setProduct(selectedProduct)
   }, [id])
@@ -151,7 +170,7 @@ export default function ProductTemplate() {
             R$ {(Math.round(product?.price * 100) / 100).toFixed(2)}
           </h3>
 
-          <div className="add-cart-container">
+          <div onClick={handleAddToCart} className="add-cart-container">
             <Button type="black">ADICIONAR AO CARRINHO</Button>
           </div>
         </div>
