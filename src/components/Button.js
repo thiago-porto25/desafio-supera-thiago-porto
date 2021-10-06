@@ -19,6 +19,21 @@ const Btn = styled.button`
       border: 1px solid var(--dark);
     }
   }
+
+  &.border-black {
+    border: 1px solid var(--dark);
+  }
+
+  &.black {
+    color: var(--light);
+    background-color: var(--dark);
+    border: 1px solid var(--dark);
+
+    &:hover {
+      color: var(--dark);
+      background-color: var(--light);
+    }
+  }
 `
 
 export default function Button({ children, type }) {
