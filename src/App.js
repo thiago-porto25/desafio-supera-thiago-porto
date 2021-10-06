@@ -1,6 +1,7 @@
 import { lazy, Suspense, useContext } from 'react'
 import { Route, Switch, useLocation } from 'react-router-dom'
 import { cartContext } from './context/cartContext'
+import { AnimatePresence } from 'framer-motion'
 
 import { Header, Cart } from './components'
 
@@ -33,7 +34,9 @@ function App() {
         </Switch>
       </Suspense>
 
-      {cartOpen && <Cart />}
+      <AnimatePresence exitBeforeEnter={true}>
+        {cartOpen && <Cart />}
+      </AnimatePresence>
     </div>
   )
 }
