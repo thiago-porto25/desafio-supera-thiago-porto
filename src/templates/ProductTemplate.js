@@ -144,7 +144,13 @@ export default function ProductTemplate() {
     else
       setCart([
         ...cart,
-        { id, price: product.price, name: product.name, quantity: 1 },
+        {
+          id,
+          price: product.price,
+          name: product.name,
+          image: product.image,
+          quantity: 1,
+        },
       ])
 
     setCartOpen(true)
