@@ -14,6 +14,12 @@ const Nav = styled.nav`
   box-sizing: border-box;
   padding: 0 3rem;
 
+  @media (max-width: 750px) {
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 1rem;
+  }
+
   a {
     color: inherit;
     text-decoration: none;
@@ -26,6 +32,12 @@ const Nav = styled.nav`
   .logo-container {
     font-family: 'Comfortaa', sans-serif;
     font-weight: bolder;
+
+    h1 {
+      @media (max-width: 300px) {
+        font-size: 25px;
+      }
+    }
   }
 
   .nav-list {
@@ -38,11 +50,20 @@ const Nav = styled.nav`
     gap: 4rem;
     font-size: 23px;
 
+    @media (max-width: 400px) {
+      gap: 2rem;
+      font-size: 18px;
+    }
+
     .cart-button {
       cursor: pointer;
 
       * {
         font-size: 40px;
+
+        @media (max-width: 400px) {
+          font-size: 30px;
+        }
       }
     }
   }
