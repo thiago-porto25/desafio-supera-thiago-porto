@@ -5,6 +5,10 @@ const Container = styled.div`
   box-sizing: border-box;
   padding: 4rem 0 4rem 4rem;
 
+  @media (max-width: 950px) {
+    padding: 1.5rem 0rem 1.5rem 4rem;
+  }
+
   .filter-title {
     font-size: 25px;
     font-weight: bold;
