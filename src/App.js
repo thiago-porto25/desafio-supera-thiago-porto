@@ -3,7 +3,7 @@ import { Route, Switch, useLocation } from 'react-router-dom'
 import { cartContext } from './context/cartContext'
 import { AnimatePresence } from 'framer-motion'
 
-import { Header, Cart } from './components'
+import { Header, Cart, Fallback } from './components'
 
 import * as ROUTES from './constants/routes'
 const Home = lazy(() => import('./pages/home'))
@@ -18,7 +18,7 @@ function App() {
     <div className={`${pathname === '/' ? 'with-background' : ''}`}>
       <Header />
 
-      <Suspense fallback={<div>loading...</div>}>
+      <Suspense fallback={<Fallback />}>
         <Switch>
           <Route exact path={ROUTES.HOME}>
             <Home />
