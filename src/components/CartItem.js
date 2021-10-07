@@ -70,9 +70,7 @@ export default function CartItem({ product }) {
       <div className="cart-item-info-container">
         <p className="cart-item-name">{product?.name}</p>
 
-        <p className="cart-item-price">
-          Subtotal: R$ {calculateSubtotal(product)}
-        </p>
+        <p className="cart-item-price">R$ {calculateSubtotal(product)}</p>
         <Quantity quantity={product?.quantity} handleChange={handleChange} />
       </div>
     </Container>

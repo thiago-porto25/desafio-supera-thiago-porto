@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { cartContext } from '../context/cartContext'
-import { useContext } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { IoMdClose } from 'react-icons/io'
 import { Button, CartItem } from '.'
@@ -57,6 +57,11 @@ const CartContainer = styled(motion.div)`
     }
   }
 
+  .cart-subtotal-container,
+  .cart-shipping-container {
+    font-size: 15px;
+  }
+
   .cart-button-container {
     height: 3.5rem;
     width: 80%;
@@ -65,7 +70,10 @@ const CartContainer = styled(motion.div)`
 `
 
 export default function Cart() {
-  const { setCartOpen, cart } = useContext(cartContext)
+  const [total, setTotal] = useState(0)
+  const [shipping, setShipping] = useState(0)
+
+  const { setCartOpen, cart, setCart } = useContext(cartContext)
   const history = useHistory()
 
   const handleSearchProducts = () => {
@@ -73,7 +81,46 @@ export default function Cart() {
     history.push(ROUTES.SHOP)
   }
 
-  const handleCheckout = () => {}
+  const calculateShipping = () => {
+    return (Math.round(shipping * 100) / 100).toFixed(2)
+  }
+
+  const calculateSubtotal = () => {
+    return (Math.round(total * 100) / 100).toFixed(2)
+  }
+
+  const calculateTotal = () => {
+    return (Math.round((total + shipping) * 100) / 100).toFixed(2)
+  }
+
+  useEffect(() => {
+    const giveTotal = () => {
+      let newTotal = 0
+
+      cart.forEach((item) => {
+        newTotal = newTotal + item.price * item.quantity
+      })
+      setTotal(newTotal)
+    }
+    giveTotal()
+  }, [cart])
+
+  useEffect(() => {
+    const giveShipping = () => {
+      console.log(total)
+      if (total >= 250) return setShipping(0)
+
+      let newShipping = 0
+
+      cart.forEach((item) => {
+        newShipping = newShipping + 10 * item.quantity
+      })
+
+      setShipping(newShipping)
+    }
+
+    giveShipping()
+  }, [cart, total])
 
   const slideIn = {
     hidden: {
@@ -130,19 +177,30 @@ export default function Cart() {
 
         {cart.length > 0 && (
           <>
+            <div className="cart-subtotal-container">
+              <h4>Subtotal: R$ {calculateSubtotal()}</h4>
+            </div>
+
             <div className="cart-shipping-container">
-              <h4>Frete: R$</h4>
+              <h4>Frete: R$ {calculateShipping()}</h4>
             </div>
 
             <div className="cart-total-container">
-              <h3>Total: R$</h3>
+              <h3>Total: R$ {calculateTotal()}</h3>
             </div>
           </>
         )}
 
         <div className="cart-button-container">
           {cart.length > 0 ? (
-            <Button onClick={handleCheckout} type="white border-black">
+            <Button
+              onClick={() => {
+                setCartOpen(false)
+                setCart([])
+                history.push(ROUTES.HOME)
+              }}
+              type="white border-black"
+            >
               CONTINUAR
             </Button>
           ) : (
