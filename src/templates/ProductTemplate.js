@@ -17,7 +17,7 @@ const Container = styled.main`
     display: flex;
     justify-content: center;
     box-sizing: border-box;
-    padding: 1rem;
+    padding: 1rem 1rem 0 1rem;
     background-color: var(--lightGrey);
     height: fit-content;
     background-color: white;
@@ -29,18 +29,15 @@ const Container = styled.main`
     @media (max-width: 850px) {
       flex-direction: column;
       align-items: center;
+      padding: 1rem;
     }
 
     .product-image-container {
-      max-width: 400px;
-      min-width: 350px;
+      max-width: 300px;
+      min-width: 300px;
       height: fit-content;
       padding: 1rem 0;
       box-sizing: border-box;
-
-      @media (max-width: 850px) {
-        min-width: 300px;
-      }
 
       @media (max-width: 650px) {
         min-width: 200px;
@@ -59,7 +56,7 @@ const Container = styled.main`
       padding: 1rem 2rem;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 2rem;
 
       @media (max-width: 650px) {
         gap: 2rem;
